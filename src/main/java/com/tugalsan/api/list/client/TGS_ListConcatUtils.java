@@ -24,10 +24,10 @@ public class TGS_ListConcatUtils {
     public static <T> List<T> filtered(TGS_ValidatorType2<List<T>, T> union_item, boolean ordered, List<T>... lists) {
         List<T> union = TGS_ListUtils.of();
         if (union_item == null) {
-            Arrays.asList(lists).forEach(lst -> union.addAll(lst));
+            Arrays.stream(lists).forEach(lst -> union.addAll(lst));
             return union;
         }
-        Arrays.asList(lists).stream().forEach(lst -> {
+        Arrays.stream(lists).forEach(lst -> {
             var s = lst.stream().filter(item -> union_item.validate(union, item));
             if (ordered) {
                 s.forEachOrdered(i -> union.add(i));
