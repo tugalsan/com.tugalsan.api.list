@@ -16,7 +16,7 @@ public class TS_ListSync<T> {
         return o;
     }
 
-//    public List<T> toListUnmodifiable() {//NOT SUPPORTED BY GWT
+//    public List<T> toListUnmodifiable() {//GWT does not like u; check on 2.10 version again!
 //        return Collections.unmodifiableList(toListLinked());
 //    }
     public TS_ListSync<T> forEach(TGS_ExecutableType1<T> item) {

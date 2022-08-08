@@ -16,7 +16,7 @@ public class TGS_ListUtils {
         if (list == null) {
             return;
         }
-        if (list instanceof ArrayList) {//GWT wants it old style
+        if (list instanceof ArrayList) {//GWT does not like pattern; check on 2.10 version again!
             ((ArrayList) list).removeIf(filter);
             return;
         }

@@ -11,13 +11,13 @@ public class TGS_ListConcatUtils {
 
     public static List<Long> distinctLong(boolean ordered, List<Long>... lists) {
         return filtered((union, item) -> {
-            return union.stream().filter(it -> it != item.longValue()).findAny().isPresent();//GWT needs !isPresent
+            return union.stream().filter(it -> it != item.longValue()).findAny().isPresent();//GWT does not like isEmpty; check on 2.10 version again!
         }, ordered, lists);
     }
 
     public static List<Integer> distinctInteger(boolean ordered, List<Integer>... lists) {
         return filtered((union, item) -> {
-            return union.stream().filter(it -> it != item.longValue()).findAny().isPresent();//GWT needs !isPresent
+            return union.stream().filter(it -> it != item.longValue()).findAny().isPresent();//GWT does not like isEmpty; check on 2.10 version again!
         }, ordered, lists);
     }
 
