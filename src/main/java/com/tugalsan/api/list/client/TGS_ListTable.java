@@ -599,6 +599,11 @@ public class TGS_ListTable {
                 .filter(ci -> validator.validate(getValueAsObject(atRowIdx, ci)))
                 .findAny().orElse(-1);
     }
+    public int findFirstColIdx(int atRowIdx, TGS_ValidatorType1<Object> validator) {
+        return IntStream.range(0, getColumnSize(atRowIdx))
+                .filter(ci -> validator.validate(getValueAsObject(atRowIdx, ci)))
+                .findFirst().orElse(-1);
+    }
 
     public List<Integer> findAllColIdxs(int atRowIdx, TGS_ValidatorType1<Object> validator) {
         return IntStream.range(0, getColumnSize(atRowIdx))
@@ -611,6 +616,12 @@ public class TGS_ListTable {
         return IntStream.range(0, rows.size())
                 .filter(ri -> validator.validate(getValueAsObject(ri, atColIdx)))
                 .findAny().orElse(-1);
+    }
+
+    public int findFirstRowIdx(int atColIdx, TGS_ValidatorType1<Object> validator) {
+        return IntStream.range(0, rows.size())
+                .filter(ri -> validator.validate(getValueAsObject(ri, atColIdx)))
+                .findFirst().orElse(-1);
     }
 
     public List<Integer> findAllRowIdxs(int atColIdx, TGS_ValidatorType1<Object> validator) {
