@@ -12,6 +12,18 @@ import com.tugalsan.api.validator.client.*;
 
 public class TGS_ListTable {
 
+    public TGS_ListTable forFirstRowIdx(TGS_ValidatorType1<Integer> optionalRowIdxValidator, TGS_ExecutableType1<Integer> ri) {
+        var rs = getRowSize();
+        for (var rowIdx = 0; rowIdx < rs; rowIdx++) {
+            if (optionalRowIdxValidator != null && !optionalRowIdxValidator.validate(rowIdx)) {
+                continue;
+            }
+            ri.execute(rowIdx);
+            return this;//forFirstRowIdx
+        }
+        return this;
+    }
+
     public TGS_ListTable forEachRowIdx(TGS_ValidatorType1<Integer> optionalRowIdxValidator, TGS_ExecutableType1<Integer> ri) {
         TGS_StreamUtils.forward(0, getRowSize()).forEachOrdered(rowIdx -> {
             if (optionalRowIdxValidator != null && !optionalRowIdxValidator.validate(rowIdx)) {
