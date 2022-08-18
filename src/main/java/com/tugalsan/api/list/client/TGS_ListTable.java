@@ -12,6 +12,12 @@ import com.tugalsan.api.validator.client.*;
 
 public class TGS_ListTable {
 
+    public int colIdxByHeader(String text) {
+        return IntStream.range(0, getColumnSize(0))
+                .filter(ci -> Objects.equals(getValueAsString(0, ci), text))
+                .findAny().orElse(-1);
+    }
+
     public TGS_ListTable forEachRowIdx(TGS_ValidatorType1<Integer> optionalRowIdxValidator, TGS_ExecutableType1<Integer> ri) {
         TGS_StreamUtils.forward(0, getRowSize()).forEachOrdered(rowIdx -> {
             if (optionalRowIdxValidator != null && !optionalRowIdxValidator.validate(rowIdx)) {
