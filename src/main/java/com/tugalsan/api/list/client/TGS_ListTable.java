@@ -287,12 +287,20 @@ public class TGS_ListTable {
             deleteColumn(idx);
         });
     }
-    
+
+    public void deleteColumns(List<Integer> colIdxs) {
+        deleteColumns_sortIdxAsReversed(colIdxs.stream().mapToInt(val -> val).toArray());
+    }
+
     public void deleteRows_sortIdxAsReversed(int... rowIdxs) {
         TGS_ListSortUtils.sortPrimativeIntReversed(rowIdxs);
         Arrays.stream(rowIdxs).forEachOrdered(idx -> {
             deleteRow(idx);
         });
+    }
+
+    public void deleteRows(List<Integer> rowIdxs) {
+        deleteRows_sortIdxAsReversed(rowIdxs.stream().mapToInt(val -> val).toArray());
     }
 
     public void deleteColumn(int columnIndex) {
@@ -606,6 +614,7 @@ public class TGS_ListTable {
                 .filter(ci -> validator.validate(getValueAsObject(atRowIdx, ci)))
                 .findAny().orElse(-1);
     }
+
     public int findFirstColIdx(int atRowIdx, TGS_ValidatorType1<Object> validator) {
         return IntStream.range(0, getColumnSize(atRowIdx))
                 .filter(ci -> validator.validate(getValueAsObject(atRowIdx, ci)))
