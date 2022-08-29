@@ -457,7 +457,7 @@ public class TGS_ListTable {
         } else if (value instanceof Double) {
             return ((Double) value).toString();
         }
-        return "Un-Recognized Type" + value.toString();
+        return value.toString();
     }
 
     public Object getValueAsObject(int rowIndex, int columnIndex) {
