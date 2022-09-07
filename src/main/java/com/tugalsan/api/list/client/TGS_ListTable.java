@@ -271,6 +271,12 @@ public class TGS_ListTable {
         });
     }
 
+    public void insertHeaderBold(Object... values) {
+        setHeaderBold(true);
+        insertEmptyRow(0);
+        setValue(0, values);
+    }
+
     boolean headerBold;
 
     public boolean isHeaderBold() {
