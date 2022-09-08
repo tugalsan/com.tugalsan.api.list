@@ -271,15 +271,17 @@ public class TGS_ListTable {
         });
     }
 
-    public void insertHeaderBold(List lst) {
+    public TGS_ListTable insertHeaderBold(List lst) {
         setHeaderBold(true);
         rows.add(0, lst);
+        return this;
     }
 
-    public void insertHeaderBold(Object... values) {
+    public TGS_ListTable insertHeaderBold(Object... values) {
         setHeaderBold(true);
         insertEmptyRow(0);
         setValue(0, values);
+        return this;
     }
 
     boolean headerBold;
