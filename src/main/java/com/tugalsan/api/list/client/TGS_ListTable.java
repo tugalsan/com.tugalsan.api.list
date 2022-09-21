@@ -12,6 +12,38 @@ import com.tugalsan.api.validator.client.*;
 
 public class TGS_ListTable {
 
+    @Deprecated
+    public TGS_ListTable() {
+        this(true);
+    }
+
+    @Deprecated
+    public TGS_ListTable(boolean setValueAsString) {
+        rows = TGS_ListUtils.of();
+        this.setValueAsString = setValueAsString;
+    }
+    private boolean setValueAsString;
+
+    protected TGS_ListTable(List list, boolean setValueAsString) {
+        this(setValueAsString);
+        IntStream.range(0, list.size()).forEachOrdered(ri -> {
+            setValue(ri, 0, list.get(ri));
+        });
+    }
+
+    public static TGS_ListTable of(boolean setValueAsString) {
+        return new TGS_ListTable(setValueAsString);
+    }
+
+    public static TGS_ListTable of(List list, boolean setValueAsString) {
+        return new TGS_ListTable(list, setValueAsString);
+    }
+
+    @Deprecated
+    public static TGS_ListTable of(List list) {
+        return new TGS_ListTable(list, true);
+    }
+
     public int colIdxByHeader(String text) {
         return IntStream.range(0, getColumnSize(0))
                 .filter(ci -> Objects.equals(getValueAsString(0, ci), text))
@@ -36,18 +68,6 @@ public class TGS_ListTable {
             ri.execute(rowIdx);
         });
         return this;
-    }
-
-    public static TGS_ListTable of() {
-        return new TGS_ListTable();
-    }
-
-    public static TGS_ListTable of(List list) {
-        var t = new TGS_ListTable();
-        IntStream.range(0, list.size()).forEachOrdered(ri -> {
-            t.setValue(ri, 0, list.get(ri));
-        });
-        return t;
     }
 
     public void deleteColumnToRight(int fromColIdx) {
@@ -366,16 +386,6 @@ public class TGS_ListTable {
             }
         });
     }
-
-    public TGS_ListTable() {
-        this(true);
-    }
-
-    public TGS_ListTable(boolean setValueAsString) {
-        rows = TGS_ListUtils.of();
-        this.setValueAsString = setValueAsString;
-    }
-    private boolean setValueAsString;
 
     public void clear() {
         rows.clear();
