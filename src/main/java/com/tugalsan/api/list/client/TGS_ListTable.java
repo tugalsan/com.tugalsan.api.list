@@ -38,6 +38,10 @@ public class TGS_ListTable {
         return this;
     }
 
+    public static TGS_ListTable of() {
+        return new TGS_ListTable();
+    }
+
     public static TGS_ListTable of(List list) {
         var t = new TGS_ListTable();
         IntStream.range(0, list.size()).forEachOrdered(ri -> {
