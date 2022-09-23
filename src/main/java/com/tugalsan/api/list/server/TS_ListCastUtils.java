@@ -4,7 +4,7 @@ import com.tugalsan.api.list.client.TGS_ListUtils;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class TGS_ListCastUtils {
+public class TS_ListCastUtils {
 
     public static List<String> toString(StringTokenizer input) {
         if (input == null) {
