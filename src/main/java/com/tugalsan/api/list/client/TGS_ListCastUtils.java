@@ -50,17 +50,6 @@ public class TGS_ListCastUtils {
         return TGS_StreamUtils.toList(Arrays.stream(primativeUnique).boxed());
     }
 
-    public static List<String> toString(StringTokenizer input) {
-        if (input == null) {
-            return null;
-        }
-        List<String> lst = TGS_ListUtils.of();
-        while (input.hasMoreTokens()) {
-            lst.add(input.nextToken());
-        }
-        return lst;
-    }
-
     public static List<Long> toLong(List input) {
         if (input == null) {
             return null;
