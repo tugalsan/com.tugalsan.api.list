@@ -53,6 +53,10 @@ public class TS_ListSync<T> {
                 count++;
             }
         }
+//      USE ITERATOR!!!
+//      return list.stream()
+//        .filter(item -> (condition.validate(item)))
+//        .count();
         return count;
     }
 
@@ -109,6 +113,7 @@ public class TS_ListSync<T> {
                 return item;
             }
         }
+        //USE THREAD SAFE ITERATOR!!!
         return null;
     }
 
@@ -122,6 +127,7 @@ public class TS_ListSync<T> {
             }
             idx++;
         }
+        //USE THREAD SAFE ITERATOR!!!
         return -1;
     }
 
@@ -134,6 +140,7 @@ public class TS_ListSync<T> {
                 foundItems.add(item);
             }
         }
+        //USE THREAD SAFE ITERATOR!!!
         return foundItems;
     }
 
@@ -148,6 +155,7 @@ public class TS_ListSync<T> {
             }
             idx++;
         }
+        //USE THREAD SAFE ITERATOR!!!
         return foundItems;
     }
 
