@@ -43,18 +43,18 @@ public class TGS_ListCastUtils {
     }
 
     public static List<Long> toLong(long[] primativeUnique) {
-        return TGS_StreamUtils.toList(Arrays.stream(primativeUnique).boxed());
+        return TGS_StreamUtils.toLst(Arrays.stream(primativeUnique).boxed());
     }
 
     public static List<Double> toDouble(double[] primativeUnique) {
-        return TGS_StreamUtils.toList(Arrays.stream(primativeUnique).boxed());
+        return TGS_StreamUtils.toLst(Arrays.stream(primativeUnique).boxed());
     }
 
     public static List<Long> toLong(List input) {
         if (input == null) {
             return null;
         }
-        return TGS_StreamUtils.toList(
+        return TGS_StreamUtils.toLst(
                 IntStream.range(0, input.size())
                         .mapToObj(i -> String.valueOf(input.get(i)))
                         .map(str -> TGS_CastUtils.toLong(str))

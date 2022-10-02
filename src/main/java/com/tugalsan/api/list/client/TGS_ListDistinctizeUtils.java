@@ -21,7 +21,7 @@ public class TGS_ListDistinctizeUtils {
 //    }
 //    public static <T> List<T> makeUnique(List<T> values) {
 //        return values.stream().distinct()
-//                            .TGS_StreamUtils.toList(Collectors.toCollection(ArrayList::new));
+//                            .TGS_StreamUtils.toLst(Collectors.toCollection(ArrayList::new));
 //    }
     public static List<String> toUniqueString(List<String> values) {
         return new ArrayList(new HashSet(values));
@@ -51,10 +51,10 @@ public class TGS_ListDistinctizeUtils {
 //    public static <T> List<T> distinctizeT(List<T> array, boolean parallel) {
 //        if (parallel) {
 //            return array.parallelStream().distinct()
-//                            .TGS_StreamUtils.toList(Collectors.toCollection(ArrayList::new));
+//                            .TGS_StreamUtils.toLst(Collectors.toCollection(ArrayList::new));
 //        }
 //        return array.stream().distinct()
-//                            .TGS_StreamUtils.toList(Collectors.toCollection(ArrayList::new));
+//                            .TGS_StreamUtils.toLst(Collectors.toCollection(ArrayList::new));
 //    }
 // NOT TESTED
 //    public static int[] distinctizeArrayInt(int[] values, boolean parallel) {

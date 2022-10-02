@@ -52,7 +52,7 @@ public class TGS_ListUtils {
     }
 
     public static List<String> toList(CharSequence[] str) {
-        return TGS_StreamUtils.toList(
+        return TGS_StreamUtils.toLst(
                 TGS_ListUtils.of(str).stream()
                         .map(c -> String.valueOf(c))
         );
