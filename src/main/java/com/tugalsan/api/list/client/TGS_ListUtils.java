@@ -115,6 +115,14 @@ public class TGS_ListUtils {
         return arr;
     }
 
+    public static int[] createInt(int start, int len) {
+        return IntStream.range(start, start + len).toArray();
+    }
+
+    public static double[] createDbl(int start, int len) {
+        return IntStream.range(start, start + len).mapToDouble(i -> i).toArray();
+    }
+
     public static double[] createDouble(double start, double steps, int len) {
         var arr = new double[len];
         IntStream.range(0, len).parallel().forEach(i -> arr[i] = start + steps * i);
