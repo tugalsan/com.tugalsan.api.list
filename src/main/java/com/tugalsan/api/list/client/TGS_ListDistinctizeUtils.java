@@ -1,5 +1,6 @@
 package com.tugalsan.api.list.client;
 
+import com.tugalsan.api.validator.client.TGS_ValidatorType2;
 import java.util.*;
 
 public class TGS_ListDistinctizeUtils {
@@ -84,6 +85,23 @@ public class TGS_ListDistinctizeUtils {
 //
 //        });
 //    }
+    public static <T> List<T> getUnique(List<T> listContainingDuplicates, TGS_ValidatorType2<T, T> equals) {
+        List<T> listUnique = TGS_ListUtils.of();
+        listContainingDuplicates.forEach(dirtyItem -> {
+            if (listUnique.stream().filter(uniqueItem -> equals.validate(uniqueItem, dirtyItem)).findAny().isPresent()) {
+                return;
+            }
+            listUnique.add(dirtyItem);
+        });
+        return listUnique;
+    }
+
+    public static <T> void makeUnique(List<T> listContainingDuplicates, TGS_ValidatorType2<T, T> equals) {
+        var listUnique = getUnique(listContainingDuplicates, equals);
+        listContainingDuplicates.clear();
+        listContainingDuplicates.addAll(listUnique);
+    }
+
     public static <T> List<T> getRepeatationsAsList(List<T> listContainingDuplicates) {
         return new ArrayList(getRepeatations(listContainingDuplicates));
     }
@@ -98,6 +116,5 @@ public class TGS_ListDistinctizeUtils {
         }
         return repeations;
     }
-    
-    
+
 }
