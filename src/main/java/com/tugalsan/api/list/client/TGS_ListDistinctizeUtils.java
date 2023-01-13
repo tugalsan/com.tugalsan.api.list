@@ -117,4 +117,16 @@ public class TGS_ListDistinctizeUtils {
         return repeations;
     }
 
+    public static <T> List<T> getUniquestAsList(List<T> listContainingDuplicates) {
+        return new ArrayList(getUniquest(listContainingDuplicates));
+    }
+
+    public static <T> Set<T> getUniquest(List<T> listContainingDuplicates) {
+        var uniques = new HashSet<T>();
+        for (var item : listContainingDuplicates) {
+            uniques.add(item);
+        }
+        return uniques;
+    }
+
 }
