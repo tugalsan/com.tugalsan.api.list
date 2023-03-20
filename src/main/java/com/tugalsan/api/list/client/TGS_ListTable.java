@@ -465,7 +465,7 @@ public class TGS_ListTable {
     protected String getStringValue(Object value) {
         if (value == null) {
             return "";
-        } else if (value instanceof TGS_Time) {
+        } else if (value instanceof TGS_Time) {//GWT WONT LIKE PATTERN
             ((TGS_Time) value).toString_dateOnly();
         } else if (value instanceof String) {
             return String.valueOf((String) value);
