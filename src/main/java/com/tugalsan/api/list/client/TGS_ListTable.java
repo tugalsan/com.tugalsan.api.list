@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.*;
 import com.tugalsan.api.time.client.*;
 import com.tugalsan.api.cast.client.*;
-import com.tugalsan.api.executable.client.*;
+import com.tugalsan.api.runnable.client.*;
 import com.tugalsan.api.shape.client.*;
 import com.tugalsan.api.stream.client.*;
 import com.tugalsan.api.string.client.*;
@@ -50,22 +50,22 @@ public class TGS_ListTable {
                 .findAny().orElse(-1);
     }
 
-    public TGS_ListTable forEachRowIdx(TGS_ValidatorType1<Integer> optionalRowIdxValidator, TGS_ExecutableType1<Integer> ri) {
+    public TGS_ListTable forEachRowIdx(TGS_ValidatorType1<Integer> optionalRowIdxValidator, TGS_RunnableType1<Integer> ri) {
         TGS_StreamUtils.forward(0, getRowSize()).forEachOrdered(rowIdx -> {
             if (optionalRowIdxValidator != null && !optionalRowIdxValidator.validate(rowIdx)) {
                 return;
             }
-            ri.execute(rowIdx);
+            ri.run(rowIdx);
         });
         return this;
     }
 
-    public TGS_ListTable forEachRowIdxReversed(TGS_ValidatorType1<Integer> optionalRowIdxValidator, TGS_ExecutableType1<Integer> ri) {
+    public TGS_ListTable forEachRowIdxReversed(TGS_ValidatorType1<Integer> optionalRowIdxValidator, TGS_RunnableType1<Integer> ri) {
         TGS_StreamUtils.reverse(0, getRowSize()).forEachOrdered(rowIdx -> {
             if (optionalRowIdxValidator != null && !optionalRowIdxValidator.validate(rowIdx)) {
                 return;
             }
-            ri.execute(rowIdx);
+            ri.run(rowIdx);
         });
         return this;
     }
@@ -85,12 +85,12 @@ public class TGS_ListTable {
         }
     }
 
-    public void deleteRow(TGS_ValidatorType1<Integer> ri, TGS_ExecutableType1<Integer> runAfterEveryDeleteRowAction) {
+    public void deleteRow(TGS_ValidatorType1<Integer> ri, TGS_RunnableType1<Integer> runAfterEveryDeleteRowAction) {
         TGS_StreamUtils.reverse(0, getRowSize()).forEachOrdered(_ri -> {
             if (ri.validate(_ri)) {
                 TGS_ListTable.this.deleteRow(_ri);
                 if (runAfterEveryDeleteRowAction != null) {
-                    runAfterEveryDeleteRowAction.execute(_ri);
+                    runAfterEveryDeleteRowAction.run(_ri);
                 }
             }
         });
