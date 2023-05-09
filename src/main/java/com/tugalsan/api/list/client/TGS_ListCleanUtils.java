@@ -60,4 +60,15 @@ public class TGS_ListCleanUtils {
         });
         return list;
     }
+    
+    public static <T> List<T> cleanNulls(List<T> list, TGS_RunnableType1<Integer> optionalExecutionForEveryDeleteOp) {
+        TGS_StreamUtils.reverse(0, list.size()).forEach(i -> {
+            var o = list.get(i);
+            if (o == null) {
+                list.remove(i);
+                optionalExecutionForEveryDeleteOp.run(i);
+            }
+        });
+        return list;
+    }
 }
