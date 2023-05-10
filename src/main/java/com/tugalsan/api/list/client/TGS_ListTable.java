@@ -687,4 +687,8 @@ public class TGS_ListTable {
     public boolean isEmpty() {
         return getRowSize() == 0;
     }
+    
+    public boolean isPresent() {
+        return !isEmpty();
+    }
 }
