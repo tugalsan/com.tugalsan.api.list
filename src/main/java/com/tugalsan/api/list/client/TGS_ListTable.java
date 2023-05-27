@@ -431,6 +431,12 @@ public class TGS_ListTable {
         return this.rows = rows;
     }
 
+    public List popRow(int rowIndex) {
+        var row = getRow(rowIndex);
+        deleteRow(rowIndex);
+        return row;
+    }
+    
     public List getRow(int rowIndex) {
         if (rowIndex >= rows.size()) {
             return null;
