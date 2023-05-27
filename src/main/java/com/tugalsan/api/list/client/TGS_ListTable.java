@@ -335,7 +335,7 @@ public class TGS_ListTable {
         });
     }
 
-    public void deleteColumns(Stream<Integer> colIdxs) {
+    public void deleteColumns(IntStream colIdxs) {
         deleteColumns(TGS_StreamUtils.toLst(colIdxs));
     }
 
