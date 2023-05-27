@@ -611,6 +611,11 @@ public class TGS_ListTable {
         return TGS_StringUtils.toString_ln(a);
     }
 
+    public void insertRow(int rowIndex, List newRow) {
+        insertEmptyRow(rowIndex);
+        setRow(rowIndex, newRow);
+    }
+    
     public void insertEmptyRow(int rowIndex) {
         if (rowIndex < 0) {
             return;
