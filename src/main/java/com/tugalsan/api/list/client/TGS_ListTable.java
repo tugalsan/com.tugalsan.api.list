@@ -34,7 +34,7 @@ public class TGS_ListTable {
     public static TGS_ListTable of(boolean setValueAsString) {
         return new TGS_ListTable(setValueAsString);
     }
-    
+
     public static TGS_ListTable ofStr() {
         return new TGS_ListTable(true);
     }
@@ -333,6 +333,10 @@ public class TGS_ListTable {
         Arrays.stream(colIdxs).forEachOrdered(idx -> {
             deleteColumn(idx);
         });
+    }
+
+    public void deleteColumns(Stream<Integer> colIdxs) {
+        deleteColumns(TGS_StreamUtils.toLst(colIdxs));
     }
 
     public void deleteColumns(List<Integer> colIdxs) {
@@ -687,7 +691,7 @@ public class TGS_ListTable {
     public boolean isEmpty() {
         return getRowSize() == 0;
     }
-    
+
     public boolean isPresent() {
         return !isEmpty();
     }
