@@ -61,4 +61,23 @@ public class TGS_ListCastUtils {
         );
     }
 
+    public static CharSequence[] toArrayCharSequence(List<CharSequence> input) {
+        return input.stream().toArray(CharSequence[]::new);
+    }
+
+    public static String[] toArrayString(List<String> input) {
+        return input.stream().toArray(String[]::new);
+    }
+
+    public static double[] toArrayDouble(List<Double> input) {
+        return input.stream().mapToDouble(Double::doubleValue).toArray();
+    }
+
+    public static int[] toArrayInteger(List<Integer> input) {
+        return input.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+    public static long[] toArrayLong(List<Long> input) {
+        return input.stream().mapToLong(Long::longValue).toArray();
+    }
 }
