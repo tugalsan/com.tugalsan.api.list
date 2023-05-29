@@ -436,7 +436,17 @@ public class TGS_ListTable {
         deleteRow(rowIndex);
         return row;
     }
-    
+
+    public List getRow_asClonedList(int rowIndex) {
+        var raw = getRow(rowIndex);
+        if (raw == null) {
+            return null;
+        }
+        var clone = new ArrayList();
+        raw.forEach(item -> clone.add(item));
+        return clone;
+    }
+
     public List getRow(int rowIndex) {
         if (rowIndex >= rows.size()) {
             return null;
@@ -621,7 +631,7 @@ public class TGS_ListTable {
         insertEmptyRow(rowIndex);
         setRow(rowIndex, newRow);
     }
-    
+
     public void insertEmptyRow(int rowIndex) {
         if (rowIndex < 0) {
             return;
