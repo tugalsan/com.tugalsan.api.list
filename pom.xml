@@ -37,6 +37,11 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>com.tugalsan.api.tuple</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>com.tugalsan.api.shape</artifactId>
             <version>${project.version}</version>
         </dependency>
