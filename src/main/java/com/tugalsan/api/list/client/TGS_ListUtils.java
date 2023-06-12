@@ -1,6 +1,7 @@
 package com.tugalsan.api.list.client;
 
 import com.tugalsan.api.stream.client.*;
+import com.tugalsan.api.tuple.client.TGS_Tuple2;
 import com.tugalsan.api.validator.client.*;
 import java.util.*;
 import java.util.function.*;
@@ -127,5 +128,16 @@ public class TGS_ListUtils {
         var arr = new double[len];
         IntStream.range(0, len).parallel().forEach(i -> arr[i] = start + steps * i);
         return arr;
+    }
+
+    public static TGS_Tuple2<CharSequence, List<CharSequence>> sliceFirstToken(List<CharSequence> parsedLine) {
+        return TGS_Tuple2.of(
+                parsedLine.isEmpty() ? null : parsedLine.get(0),
+                TGS_StreamUtils.toLst(
+                        IntStream.range(0, parsedLine.size())
+                                .filter(i -> i != 0)
+                                .mapToObj(i -> parsedLine.get(i))
+                )
+        );
     }
 }
