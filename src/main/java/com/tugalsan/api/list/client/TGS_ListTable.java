@@ -26,16 +26,16 @@ public class TGS_ListTable {
         });
     }
 
-    public static TGS_ListTable of(boolean setValueAsString) {
-        return new TGS_ListTable(setValueAsString);
+    public static TGS_ListTable of(boolean setNullAsEmptyString) {
+        return new TGS_ListTable(setNullAsEmptyString);
     }
 
     public static TGS_ListTable ofStr() {
         return new TGS_ListTable(true);
     }
 
-    public static TGS_ListTable of(List list, boolean setValueAsString) {
-        return new TGS_ListTable(list, setValueAsString);
+    public static TGS_ListTable of(List list, boolean setNullAsEmptyString) {
+        return new TGS_ListTable(list, setNullAsEmptyString);
     }
 
     @Deprecated
