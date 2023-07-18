@@ -13,19 +13,14 @@ import com.tugalsan.api.validator.client.*;
 public class TGS_ListTable {
 
     @Deprecated
-    public TGS_ListTable() {
-        this(true);
-    }
-
-    @Deprecated
-    public TGS_ListTable(boolean setValueAsString) {
+    public TGS_ListTable(boolean setNullAsEmptyString) {
         rows = TGS_ListUtils.of();
-        this.setValueAsString = setValueAsString;
+        this.setNullAsEmptyString = setNullAsEmptyString;
     }
-    private boolean setValueAsString;
+    private boolean setNullAsEmptyString;
 
-    protected TGS_ListTable(List list, boolean setValueAsString) {
-        this(setValueAsString);
+    protected TGS_ListTable(List list, boolean setNullAsEmptyString) {
+        this(setNullAsEmptyString);
         IntStream.range(0, list.size()).forEachOrdered(ri -> {
             setValue(ri, 0, list.get(ri));
         });
@@ -278,7 +273,7 @@ public class TGS_ListTable {
     }
 
     public TGS_ListTable cloneIt() {
-        var clone = new TGS_ListTable();
+        var clone = TGS_ListTable.ofStr();
         clone.sniffRows(this);
         clone.setHeaderBold(this.isHeaderBold());
         return clone;
@@ -420,7 +415,7 @@ public class TGS_ListTable {
         while (columnIndex >= row.size()) {
             row.add("");
         }
-        row.set(columnIndex, value == null ? "" : (setValueAsString ? getStringValue(value) : value));
+        row.set(columnIndex, value == null ? "" : (setNullAsEmptyString ? getStringValue(value) : value));
     }
 
     public List getRows() {
