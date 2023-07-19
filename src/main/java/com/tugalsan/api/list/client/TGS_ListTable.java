@@ -350,7 +350,7 @@ public class TGS_ListTable {
     }
 
     public void deleteColumnLast() {
-        deleteColumn(getColumnSize(0));
+        deleteColumn(getColumnSize(0) - 1);
     }
 
     public void deleteColumnFirst() {
