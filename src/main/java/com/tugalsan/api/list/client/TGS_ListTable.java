@@ -349,6 +349,14 @@ public class TGS_ListTable {
         deleteRows_sortIdxAsReversed(rowIdxs.stream().mapToInt(val -> val).toArray());
     }
 
+    public void deleteColumnLast() {
+        deleteColumn(getColumnSize(0));
+    }
+
+    public void deleteColumnFirst() {
+        deleteColumn(0);
+    }
+
     public void deleteColumn(int columnIndex) {
         var rowSize = rows.size();
         IntStream.range(0, rowSize).forEachOrdered(ri -> {
