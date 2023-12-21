@@ -16,12 +16,12 @@ public class TGS_ListSwapUtils {
         });
     }
 
-    public static final <T> void swap(int i, int j, List<T>... l) {
+    public static final void swap(int i, int j, List<?>... l) {//? makes it like read-only
         if (i == j) {
             return;
         }
         TGS_ListUtils.of(l).parallelStream().forEach(lst -> {
-            Collections.<T>swap(lst, i, j);
+            Collections.swap(lst, i, j);
         });
     }
 
