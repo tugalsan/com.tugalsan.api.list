@@ -12,8 +12,7 @@ import com.tugalsan.api.validator.client.*;
 
 public class TGS_ListTable {
 
-    @Deprecated
-    public TGS_ListTable(boolean setNullAsEmptyString) {
+    protected TGS_ListTable(boolean setNullAsEmptyString) {
         rows = TGS_ListUtils.of();
         this.setNullAsEmptyString = setNullAsEmptyString;
     }
@@ -419,7 +418,7 @@ public class TGS_ListTable {
         while (rowIndex >= rows.size()) {
             rows.add(TGS_ListUtils.of());
         }
-        List row = (List) rows.get(rowIndex);
+        var row = (List) rows.get(rowIndex);
         while (columnIndex >= row.size()) {
             row.add("");
         }
@@ -518,7 +517,7 @@ public class TGS_ListTable {
         if (rowIndex >= rows.size()) {
             return null;
         }
-        List v = (List) rows.get(rowIndex);
+        var v = (List) rows.get(rowIndex);
         if (columnIndex >= v.size()) {
             return null;
         }
@@ -593,7 +592,7 @@ public class TGS_ListTable {
         if (rowIndex >= rows.size()) {
             return 0;
         }
-        List v = (List) rows.get(rowIndex);
+        var v = (List) rows.get(rowIndex);
         return v.size();
     }
 

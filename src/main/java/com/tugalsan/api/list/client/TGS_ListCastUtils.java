@@ -9,35 +9,35 @@ public class TGS_ListCastUtils {
 
     public static boolean[] toPrimativeBoolean(List<Boolean> values) {
         var size = values.size();
-        boolean[] prim = new boolean[size];
+        var prim = new boolean[size];
         IntStream.range(0, size).forEachOrdered(i -> prim[i] = values.get(i));
         return prim;
     }
 
     public static double[] toPrimativeDouble(List<Double> values) {
         var size = values.size();
-        double[] prim = new double[size];
+        var prim = new double[size];
         IntStream.range(0, size).forEachOrdered(i -> prim[i] = values.get(i));
         return prim;
     }
 
     public static float[] toPrimativeFloat(List<Float> values) {
         var size = values.size();
-        float[] prim = new float[size];
+        var prim = new float[size];
         IntStream.range(0, size).forEachOrdered(i -> prim[i] = values.get(i));
         return prim;
     }
 
     public static long[] toPrimativeLong(List<Long> values) {
         var size = values.size();
-        long[] prim = new long[size];
+        var prim = new long[size];
         IntStream.range(0, size).forEachOrdered(i -> prim[i] = values.get(i));
         return prim;
     }
 
     public static int[] toPrimativeInteger(List<Integer> values) {
         var size = values.size();
-        int[] prim = new int[size];
+        var prim = new int[size];
         IntStream.range(0, size).forEachOrdered(i -> prim[i] = values.get(i));
         return prim;
     }

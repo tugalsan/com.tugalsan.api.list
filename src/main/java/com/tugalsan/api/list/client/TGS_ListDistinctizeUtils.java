@@ -109,11 +109,11 @@ public class TGS_ListDistinctizeUtils {
     public static <T> Set<T> getRepeatations(List<T> listContainingDuplicates) {
         var repeations = new HashSet<T>();
         var uniques = new HashSet<T>();
-        for (var item : listContainingDuplicates) {
-            if (!uniques.add(item)) {
-                repeations.add(item);
-            }
-        }
+        listContainingDuplicates.stream()
+                .filter(item -> (!uniques.add(item)))
+                .forEachOrdered(item -> {
+                    repeations.add(item);
+                });
         return repeations;
     }
 
@@ -123,9 +123,9 @@ public class TGS_ListDistinctizeUtils {
 
     public static <T> Set<T> getUniquest(List<T> listContainingDuplicates) {
         var uniques = new HashSet<T>();
-        for (var item : listContainingDuplicates) {
+        listContainingDuplicates.forEach(item -> {
             uniques.add(item);
-        }
+        });
         return uniques;
     }
 

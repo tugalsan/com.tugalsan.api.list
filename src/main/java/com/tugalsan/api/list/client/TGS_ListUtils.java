@@ -8,6 +8,10 @@ import java.util.function.*;
 import java.util.stream.*;
 
 public class TGS_ListUtils {
+    
+    private TGS_ListUtils(){//TO DETECT OLD CODES
+        
+    }
 
     public void removeIf(List list, TGS_ValidatorType2<List, Object> validator) {
         removeIf(list, (Predicate) (Object t) -> validator.validate(list, t));
