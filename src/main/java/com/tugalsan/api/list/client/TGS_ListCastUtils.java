@@ -2,6 +2,7 @@ package com.tugalsan.api.list.client;
 
 import com.tugalsan.api.cast.client.*;
 import com.tugalsan.api.stream.client.*;
+import com.tugalsan.api.union.client.TGS_UnionExcuse;
 import java.util.*;
 import java.util.stream.*;
 
@@ -50,15 +51,22 @@ public class TGS_ListCastUtils {
         return TGS_StreamUtils.toLst(Arrays.stream(primativeUnique).boxed());
     }
 
-    public static List<Long> toLong(List input) {
+    public static TGS_UnionExcuse<List<Long>> toLong(List input) {
         if (input == null) {
-            return null;
+            return TGS_UnionExcuse.ofExcuse(TGS_ListCastUtils.class.getSimpleName(),"toLong", "input == null");
         }
-        return TGS_StreamUtils.toLst(
-                IntStream.range(0, input.size())
-                        .mapToObj(i -> String.valueOf(input.get(i)))
-                        .map(str -> TGS_CastUtils.toLong(str))
-        );
+        String s;
+        TGS_UnionExcuse<Long> u;
+        List<Long> l = TGS_ListUtils.of();
+        for (var i = 0; i < input.size(); i++) {
+            s = String.valueOf(input.get(i));
+            u = TGS_CastUtils.toLong(s);
+            if (u.isExcuse()){
+                return u.toExcuse();
+            }
+            l.add(u.value());
+        }
+        return TGS_UnionExcuse.of(l);
     }
 
     public static CharSequence[] toArrayCharSequence(List<CharSequence> input) {

@@ -8,6 +8,8 @@ import com.tugalsan.api.runnable.client.*;
 import com.tugalsan.api.shape.client.*;
 import com.tugalsan.api.stream.client.*;
 import com.tugalsan.api.string.client.*;
+import com.tugalsan.api.union.client.TGS_UnionExcuse;
+import com.tugalsan.api.union.client.TGS_UnionExcuseVoid;
 import com.tugalsan.api.validator.client.*;
 
 public class TGS_ListTable {
@@ -109,29 +111,41 @@ public class TGS_ListTable {
         IntStream.range(0, getMaxColumnSize()).forEachOrdered(ci -> setValue(0, ci, String.valueOf(ci)));
     }
 
-    public TGS_ListTable sortColumnAsDouble(int columnIndex, boolean skipHeader) {
+    public TGS_UnionExcuseVoid sortColumnAsDouble(int columnIndex, boolean skipHeader) {
         var rs = rows.size();
         List tmpRow;
+        TGS_UnionExcuse<String> u_is, u_js;
+        TGS_UnionExcuse<Double> u_it, u_jt;
         String is, js;
         Double it, jt;
         for (var ri = 0 + (skipHeader ? 1 : 0); ri < rs; ri++) {
-            is = getValueAsString(ri, columnIndex);
+            u_is = getValueAsString(ri, columnIndex);
+            if (u_is.isExcuse()) {
+                return u_is.toExcuseVoid();
+            }
+            is = u_is.value();
             if (is.startsWith("%")) {
                 is = is.substring(1);
             }
-            it = TGS_CastUtils.toDouble(is);
-            if (it == null) {
+            u_it = TGS_CastUtils.toDouble(is);
+            if (u_it.isExcuse()) {
                 continue;
             }
+            it = u_it.value();
             for (var j = ri + 1; j < rs; j++) {
-                js = getValueAsString(j, columnIndex);
+                u_js = getValueAsString(j, columnIndex);
+                if (u_js.isExcuse()) {
+                    return u_js.toExcuseVoid();
+                }
+                js = u_js.value();
                 if (js.startsWith("%")) {
                     js = js.substring(1);
                 }
-                jt = TGS_CastUtils.toDouble(js);
-                if (jt == null) {
+                u_jt = TGS_CastUtils.toDouble(js);
+                if (u_jt.isExcuse()) {
                     continue;
                 }
+                jt = u_jt.value();
                 if (it.compareTo(jt) > 0) {
                     tmpRow = getRow(ri);
                     rows.remove(ri);
@@ -141,32 +155,46 @@ public class TGS_ListTable {
                 }
             }
         }
-        return this;
+        return TGS_UnionExcuseVoid.ofVoid();
     }
 
-    @Deprecated //Untested
-    public TGS_ListTable sortColumnAsInteger(int columnIndex, boolean skipHeader) {
+    public TGS_UnionExcuseVoid sortColumnAsInteger(int columnIndex, boolean skipHeader) {
         var rs = rows.size();
-        for (var ri = skipHeader ? 1 : 0; ri < rs; ri++) {
-            var is = getValueAsString(ri, columnIndex);
+        List tmpRow;
+        TGS_UnionExcuse<String> u_is, u_js;
+        TGS_UnionExcuse<Integer> u_it, u_jt;
+        String is, js;
+        Integer it, jt;
+        for (var ri = 0 + (skipHeader ? 1 : 0); ri < rs; ri++) {
+            u_is = getValueAsString(ri, columnIndex);
+            if (u_is.isExcuse()) {
+                return u_is.toExcuseVoid();
+            }
+            is = u_is.value();
             if (is.startsWith("%")) {
                 is = is.substring(1);
             }
-            var it = TGS_CastUtils.toInteger(is);
-            if (it == null) {
+            u_it = TGS_CastUtils.toInteger(is);
+            if (u_it.isExcuse()) {
                 continue;
             }
+            it = u_it.value();
             for (var j = ri + 1; j < rs; j++) {
-                var js = getValueAsString(j, columnIndex);
+                u_js = getValueAsString(j, columnIndex);
+                if (u_js.isExcuse()) {
+                    return u_js.toExcuseVoid();
+                }
+                js = u_js.value();
                 if (js.startsWith("%")) {
                     js = js.substring(1);
                 }
-                var jt = TGS_CastUtils.toInteger(js);
-                if (jt == null) {
+                u_jt = TGS_CastUtils.toInteger(js);
+                if (u_jt.isExcuse()) {
                     continue;
                 }
+                jt = u_jt.value();
                 if (it.compareTo(jt) > 0) {
-                    var tmpRow = getRow(ri);
+                    tmpRow = getRow(ri);
                     rows.remove(ri);
                     rows.add(tmpRow);
                     ri = -1;
@@ -174,16 +202,28 @@ public class TGS_ListTable {
                 }
             }
         }
-        return this;
+        return TGS_UnionExcuseVoid.ofVoid();
     }
 
-    public void sortColumnAsString(int ci, boolean skipHeader) {//0, false
+    public TGS_UnionExcuseVoid sortColumnAsString(int ci, boolean skipHeader) {//0, false
         var rs = rows.size();
         var ri = skipHeader ? 1 : 0;
+        TGS_UnionExcuse<String> u_is, u_js;
+        String is, js;
         while (ri < rs) {
             var rj = ri + 1;
             while (rj < rs) {
-                if ((getValueAsString(ri, ci)).compareTo(getValueAsString(rj, ci)) > 0) {
+                u_is = getValueAsString(ri, ci);
+                if (u_is.isExcuse()) {
+                    return u_is.toExcuseVoid();
+                }
+                is = u_is.value();
+                u_js = getValueAsString(rj, ci);
+                if (u_js.isExcuse()) {
+                    return u_js.toExcuseVoid();
+                }
+                js = u_js.value();
+                if (is.compareTo(js) > 0) {
                     var temp = getRow(ri);
                     setRow(ri, getRow(rj));
                     setRow(rj, temp);
@@ -192,6 +232,7 @@ public class TGS_ListTable {
             }
             ri += 1;
         }
+        return TGS_UnionExcuseVoid.ofVoid();
     }
 
     //IS IT WORKING?
@@ -205,69 +246,65 @@ public class TGS_ListTable {
         rows.add(toIndex, o);
     }
 
-    public void addRow_SumInteger() {
+    public void addRow_SumInteger_skipFailedCells() {
         var rs = rows.size();
         IntStream.range(0, getMaxColumnSize()).forEachOrdered(ci -> {
             var sum = 0;
             for (var ri = 0; ri < rs; ri++) {
-                var str = getValueAsString(ri, ci);
-                var val = TGS_CastUtils.toInteger(str);
-                if (val == null) {
+                var u = getValueAsInteger(ri, ci);
+                if (u.isExcuse()) {
                     continue;
                 }
-                sum += val;
+                sum += u.value();
             }
             setValue(rs, ci, sum);
         });
     }
 
-    public void addRow_SumDouble() {
+    public void addRow_SumDouble_skipFailedCells() {
         var rs = rows.size();
         IntStream.range(0, getMaxColumnSize()).forEachOrdered(ci -> {
             var sum = 0d;
             for (var ri = 0; ri < rs; ri++) {
-                var str = getValueAsString(ri, ci);
-                var val = TGS_CastUtils.toDouble(str);
-                if (val == null) {
+                var u = getValueAsDouble(ri, ci);
+                if (u.isExcuse()) {
                     continue;
                 }
-                sum += val;
+                sum += u.value();
             }
             setValue(rs, ci, sum);
         });
     }
 
-    public double calcSumDouble(boolean skipHeaders, int ci, String nullText) {
+    public double calcSumDouble_orElseSetText(boolean skipHeaders, int ci, String errText) {
         var rs = rows.size() - 1;
         var failed = false;
         var i_sum = 0d;
         for (var ri = skipHeaders ? 1 : 0; ri < rs; ri++) {
-            var s = getValueAsString(ri, ci);
-            var i = TGS_CastUtils.toDouble(s);
-            if (i == null) {
+            var s = getValueAsDouble(ri, ci);
+            if (s.isExcuse()) {
                 failed = true;
                 break;
             }
-            i_sum += i;
+            i_sum += s.value();
         }
-        setValue(rs, ci, failed ? nullText : i_sum);
+        setValue(rs, ci, failed ? errText : i_sum);
         return i_sum;
     }
 
-    public int calcSumInteger(boolean skipHeaders, int ci, String nullText) {
+    public int calcSumInteger_orElseSetText(boolean skipHeaders, int ci, String errText) {
         var rs = rows.size() - 1;
         var failed = false;
         var i_sum = 0;
         for (var ri = skipHeaders ? 1 : 0; ri < rs; ri++) {
-            var s = getValueAsString(ri, ci);
-            var i = TGS_CastUtils.toInteger(s);
-            if (i == null) {
+            var s = getValueAsInteger(ri, ci);
+            if (s.isExcuse()) {
                 failed = true;
                 break;
             }
-            i_sum += i;
+            i_sum += s.value();
         }
-        setValue(rs, ci, failed ? nullText : i_sum);
+        setValue(rs, ci, failed ? errText : i_sum);
         return i_sum;
     }
 
@@ -513,75 +550,125 @@ public class TGS_ListTable {
         return value.toString();
     }
 
-    public Object getValueAsObject(int rowIndex, int columnIndex) {
+    public TGS_UnionExcuse<Object> getValueAsObject(int rowIndex, int columnIndex) {
         if (rowIndex >= rows.size()) {
-            return null;
+            return TGS_UnionExcuse.ofExcuse(TGS_ListTable.class.getSimpleName(), "getValueAsObject", "rowIndex >= rows.size()");
         }
         var v = (List) rows.get(rowIndex);
         if (columnIndex >= v.size()) {
-            return null;
+            return TGS_UnionExcuse.ofExcuse(TGS_ListTable.class.getSimpleName(), "getValueAsObject", "columnIndex >= v.size()");
         }
-        return v.get(columnIndex);
+        return TGS_UnionExcuse.of(v.get(columnIndex));
     }
 
-    public String getValueAsString(int rowIndex, int columnIndex) {
-        return String.valueOf(getValueAsObject(rowIndex, columnIndex));
+    public TGS_UnionExcuse<String> getValueAsString(int rowIndex, int columnIndex) {
+        var u = getValueAsObject(rowIndex, columnIndex);
+        if (u.isExcuse()) {
+            return u.toExcuse();
+        }
+        return TGS_UnionExcuse.of(String.valueOf(u.value()));
     }
 
-    public boolean isValueEmpty(int rowIndex, int columnIndex) {
-        return TGS_StringUtils.isNullOrEmpty(getValueAsString(rowIndex, columnIndex));
+    public TGS_UnionExcuse<Boolean> isValueEmpty(int rowIndex, int columnIndex) {
+        var u = getValueAsString(rowIndex, columnIndex);
+        if (u.isExcuse()) {
+            return u.toExcuse();
+        }
+        return TGS_UnionExcuse.of(TGS_StringUtils.isNullOrEmpty(u.value()));
     }
 
-    public boolean isValuePresent(int rowIndex, int columnIndex) {
-        return !isValueEmpty(rowIndex, columnIndex);
+    public TGS_UnionExcuse<Boolean> isValuePresent(int rowIndex, int columnIndex) {
+        var u_empty = isValueEmpty(rowIndex, columnIndex);
+        if (u_empty.isExcuse()) {
+            return u_empty;
+        }
+        return TGS_UnionExcuse.of(!u_empty.value());
     }
 
-    public Integer getValueAsInteger(int rowIndex, int columnIndex) {
-        return TGS_CastUtils.toInteger(getValueAsString(rowIndex, columnIndex));
+    public TGS_UnionExcuse<Integer> getValueAsInteger(int rowIndex, int columnIndex) {
+        var u = getValueAsString(rowIndex, columnIndex);
+        if (u.isExcuse()) {
+            return u.toExcuse();
+        }
+        return TGS_CastUtils.toInteger(u.value());
     }
 
-    public Long getValueAsLong(int rowIndex, int columnIndex) {
+    public TGS_UnionExcuse<Long> getValueAsLong(int rowIndex, int columnIndex) {
         return TGS_CastUtils.toLong(getValueAsString(rowIndex, columnIndex));
     }
 
-    public Double getValueAsDouble(int rowIndex, int columnIndex) {
-        return TGS_CastUtils.toDouble(getValueAsString(rowIndex, columnIndex));
-    }
-
-    public Boolean getValueAsBoolean(int rowIndex, int columnIndex) {
-        return TGS_CastUtils.toBoolean(getValueAsString(rowIndex, columnIndex));
-    }
-
-    public Double multiplyValueAsDouble(int rowIndex, int columnIndex, double factor) {
-        var val = getValueAsDouble(rowIndex, columnIndex);
-        if (val == null) {
-            return null;
+    public TGS_UnionExcuse<Double> getValueAsDouble(int rowIndex, int columnIndex) {
+        var u = getValueAsString(rowIndex, columnIndex);
+        if (u.isExcuse()) {
+            return u.toExcuse();
         }
-        val *= factor;
-        setValue(rowIndex, columnIndex, val);
-        return val;
+        return TGS_CastUtils.toDouble(u.value());
     }
 
-    public Integer multiplyValueAsInteger(int rowIndex, int columnIndex, int factor) {
-        var val = getValueAsInteger(rowIndex, columnIndex);
-        if (val == null) {
-            return null;
+    public TGS_UnionExcuse<Boolean> getValueAsBoolean(int rowIndex, int columnIndex) {
+        var u = getValueAsString(rowIndex, columnIndex);
+        if (u.isExcuse()) {
+            return u.toExcuse();
         }
-        val *= factor;
+        return TGS_CastUtils.toBoolean(u.value());
+    }
+
+    public TGS_UnionExcuse<Double> multiplyValueAsDouble(int rowIndex, int columnIndex, double factor) {
+        var u = getValueAsDouble(rowIndex, columnIndex);
+        if (u.isExcuse()) {
+            return u;
+        }
+        var val = factor * u.value();
         setValue(rowIndex, columnIndex, val);
-        return val;
+        return TGS_UnionExcuse.of(val);
     }
 
-    public void multiplyColumnAsDouble(int columnIndex, double factor, Integer skipHeaderRows) {
-        IntStream.range(skipHeaderRows == null ? 0 : skipHeaderRows, getRowSize()).forEachOrdered(ri -> {
-            multiplyValueAsDouble(ri, columnIndex, factor);
-        });
+    public TGS_UnionExcuse<Integer> multiplyValueAsInteger(int rowIndex, int columnIndex, int factor) {
+        var u = getValueAsInteger(rowIndex, columnIndex);
+        if (u.isExcuse()) {
+            return u;
+        }
+        var val = factor * u.value();
+        setValue(rowIndex, columnIndex, val);
+        return TGS_UnionExcuse.of(val);
     }
 
-    public void multiplyColumnAsInteger(int columnIndex, Integer factor, Integer skipHeaderRows) {
+    public TGS_UnionExcuseVoid multiplyColumnAsDouble(int columnIndex, double factor, Integer skipHeaderRows) {
+        var wrap = new Object() {
+            TGS_UnionExcuse<Double> u;
+        };
         IntStream.range(skipHeaderRows == null ? 0 : skipHeaderRows, getRowSize()).forEachOrdered(ri -> {
-            multiplyValueAsInteger(ri, columnIndex, factor);
+            if (wrap.u != null && wrap.u.isExcuse()) {
+                return;
+            }
+            wrap.u = multiplyValueAsDouble(ri, columnIndex, factor);
         });
+        if (wrap.u == null) {
+            return TGS_UnionExcuseVoid.ofVoid();
+        }
+        if (wrap.u.isExcuse()) {
+            return wrap.u.toExcuseVoid();
+        }
+        return TGS_UnionExcuseVoid.ofVoid();
+    }
+
+    public TGS_UnionExcuseVoid multiplyColumnAsInteger(int columnIndex, Integer factor, Integer skipHeaderRows) {
+        var wrap = new Object() {
+            TGS_UnionExcuse<Integer> u;
+        };
+        IntStream.range(skipHeaderRows == null ? 0 : skipHeaderRows, getRowSize()).forEachOrdered(ri -> {
+            if (wrap.u != null && wrap.u.isExcuse()) {
+                return;
+            }
+            wrap.u = multiplyValueAsInteger(ri, columnIndex, factor);
+        });
+        if (wrap.u == null) {
+            return TGS_UnionExcuseVoid.ofVoid();
+        }
+        if (wrap.u.isExcuse()) {
+            return wrap.u.toExcuseVoid();
+        }
+        return TGS_UnionExcuseVoid.ofVoid();
     }
 
     public int getRowSize() {

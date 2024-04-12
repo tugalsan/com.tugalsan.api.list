@@ -66,39 +66,41 @@ public class TGS_ListSortUtils {
     public static void sortStringAsDouble(List<String> v) {
         TGS_ListSortUtils.sortList(v, (Comparator<String>) (String a, String b) -> {
             var da = TGS_CastUtils.toDouble(a);
-            if (da == null) {
+            if (da .isExcuse()) {
                 return 0;
             }
             var db = TGS_CastUtils.toDouble(b);
-            if (db == null) {
+            if (db .isExcuse()) {
                 return 0;
             }
-            return Double.compare(da, db);
+            return Double.compare(da.value(), db.value());
         });
     }
 
     public static void sortStringAsLong(List<String> v) {
         TGS_ListSortUtils.sortList(v, (Comparator<String>) (String a, String b) -> {
             var da = TGS_CastUtils.toLong(a);
-            var db = TGS_CastUtils.toLong(b);
-            if (da == null || db == null) {
+            if (da .isExcuse()) {
+                return 0;
+            }var db = TGS_CastUtils.toLong(b);
+            if (db .isExcuse()) {
                 return 0;
             }
-            return Long.compare(da, db);
+            return Long.compare(da.value(), db.value());
         });
     }
 
     public static void sortStringAsInteger(List<String> v) {
         TGS_ListSortUtils.sortList(v, (Comparator<String>) (String a, String b) -> {
             var da = TGS_CastUtils.toInteger(a);
-            if (da == null) {
+            if (da .isExcuse()) {
                 return 0;
             }
             var db = TGS_CastUtils.toInteger(b);
-            if (db == null) {
+            if (db .isExcuse()) {
                 return 0;
             }
-            return Integer.compare(da, db);
+            return Integer.compare(da.value(), db.value());
         });
     }
 
