@@ -1,16 +1,15 @@
 package com.tugalsan.api.list.client;
 
 import com.tugalsan.api.stream.client.*;
-import com.tugalsan.api.tuple.client.TGS_Tuple2;
 import com.tugalsan.api.validator.client.*;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
 
 public class TGS_ListUtils {
-    
-    private TGS_ListUtils(){//TO DETECT OLD CODES
-        
+
+    private TGS_ListUtils() {//TO DETECT OLD CODES
+
     }
 
     public void removeIf(List list, TGS_ValidatorType2<List, Object> validator) {
@@ -134,8 +133,8 @@ public class TGS_ListUtils {
         return arr;
     }
 
-    public static TGS_Tuple2<CharSequence, List<CharSequence>> sliceFirstToken(List<CharSequence> parsedLine) {
-        return TGS_Tuple2.of(
+    public static SliceFirstTokenResult sliceFirstToken(List<CharSequence> parsedLine) {
+        return new SliceFirstTokenResult(
                 parsedLine.isEmpty() ? null : parsedLine.get(0),
                 TGS_StreamUtils.toLst(
                         IntStream.range(0, parsedLine.size())
@@ -143,5 +142,9 @@ public class TGS_ListUtils {
                                 .mapToObj(i -> parsedLine.get(i))
                 )
         );
+    }
+
+    public static record SliceFirstTokenResult(CharSequence first, List<CharSequence> rest) {
+
     }
 }
