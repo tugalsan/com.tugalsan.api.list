@@ -405,6 +405,10 @@ public class TGS_ListTable {
         rows.add(row);
     }
 
+    public void addRowEmpty() {
+        rows.add(TGS_ListUtils.of());
+    }
+
     public void setValue(int rowIndex, Object... values) {
         if (values.length == 1 && values[0] instanceof Object[] && !(values[0] instanceof byte[])) {
             var valuesArr = (Object[]) values[0];
