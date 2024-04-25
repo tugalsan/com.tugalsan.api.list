@@ -69,10 +69,10 @@ public class TGS_ListTable {
     }
 
     public void deleteColumnToRight(int fromColIdx) {
-        IntStream.range(0, getRowSize()).forEachOrdered(i -> {
-            var a = getRow(i);
-            while (a.size() > fromColIdx) {
-                a.remove(fromColIdx);
+        IntStream.range(0, getRowSize()).forEachOrdered(ri -> {
+            var row = getRow(ri);
+            while (row.size() > fromColIdx) {
+                row.remove(fromColIdx);
             }
         });
     }
