@@ -114,6 +114,12 @@ public class TGS_ListUtils {
         return sb.toString();
     }
 
+    public static String toString_newLine(int[] array) {
+        var sb = new StringJoiner("\n");
+        Arrays.stream(array).forEachOrdered(i -> sb.add(String.valueOf(i)));
+        return sb.toString();
+    }
+
     public static int[] createInt(int start, int steps, int len) {
         var arr = new int[len];
         IntStream.range(0, len).parallel().forEach(i -> arr[i] = start + steps * (i - 1));
