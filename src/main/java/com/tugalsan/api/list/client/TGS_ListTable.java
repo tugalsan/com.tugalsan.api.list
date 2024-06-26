@@ -1,6 +1,6 @@
 package com.tugalsan.api.list.client;
 
-import com.tugalsan.api.callable.client.TGS_CallableType1Void;
+import com.tugalsan.api.callable.client.*;
 import java.util.*;
 import java.util.stream.*;
 import com.tugalsan.api.time.client.*;
@@ -8,7 +8,6 @@ import com.tugalsan.api.cast.client.*;
 import com.tugalsan.api.shape.client.*;
 import com.tugalsan.api.stream.client.*;
 import com.tugalsan.api.string.client.*;
-import com.tugalsan.api.validator.client.*;
 
 public class TGS_ListTable {
 
@@ -48,7 +47,7 @@ public class TGS_ListTable {
                 .findAny().orElse(-1);
     }
 
-    public TGS_ListTable forEachRowIdx(TGS_ValidatorType1<Integer> optionalRowIdxValidator, TGS_CallableType1Void<Integer> ri) {
+    public TGS_ListTable forEachRowIdx(TGS_CallableType1_Validate<Integer> optionalRowIdxValidator, TGS_CallableType1_Run<Integer> ri) {
         TGS_StreamUtils.forward(0, getRowSize()).forEachOrdered(rowIdx -> {
             if (optionalRowIdxValidator != null && !optionalRowIdxValidator.validate(rowIdx)) {
                 return;
@@ -58,7 +57,7 @@ public class TGS_ListTable {
         return this;
     }
 
-    public TGS_ListTable forEachRowIdxReversed(TGS_ValidatorType1<Integer> optionalRowIdxValidator, TGS_CallableType1Void<Integer> ri) {
+    public TGS_ListTable forEachRowIdxReversed(TGS_CallableType1_Validate<Integer> optionalRowIdxValidator, TGS_CallableType1_Run<Integer> ri) {
         TGS_StreamUtils.reverse(0, getRowSize()).forEachOrdered(rowIdx -> {
             if (optionalRowIdxValidator != null && !optionalRowIdxValidator.validate(rowIdx)) {
                 return;
@@ -83,7 +82,7 @@ public class TGS_ListTable {
         }
     }
 
-    public void deleteRow(TGS_ValidatorType1<Integer> ri, TGS_CallableType1Void<Integer> runAfterEveryDeleteRowAction) {
+    public void deleteRow(TGS_CallableType1_Validate<Integer> ri, TGS_CallableType1_Run<Integer> runAfterEveryDeleteRowAction) {
         TGS_StreamUtils.reverse(0, getRowSize()).forEachOrdered(_ri -> {
             if (ri.validate(_ri)) {
                 TGS_ListTable.this.deleteRow(_ri);
@@ -94,7 +93,7 @@ public class TGS_ListTable {
         });
     }
 
-    public void deleteRow(TGS_ValidatorType1<Integer> ri) {
+    public void deleteRow(TGS_CallableType1_Validate<Integer> ri) {
         deleteRow(ri, null);
     }
 
@@ -670,45 +669,45 @@ public class TGS_ListTable {
                 .forEach(i -> rows.remove(i));
     }
 
-    public TGS_ShapeLocation<Integer> find(TGS_ValidatorType1<Object> validator) {
+    public TGS_ShapeLocation<Integer> find(TGS_CallableType1_Validate<Object> validator) {
         return IntStream.range(0, rows.size())
                 .mapToObj(ri -> TGS_ShapeLocation.of(ri, findAnyColIdx(ri, validator))[0])
                 .filter(p2 -> p2.y != -1)
                 .findAny().orElse(null);
     }
 
-    public int findAnyColIdx(int atRowIdx, TGS_ValidatorType1<Object> validator) {
+    public int findAnyColIdx(int atRowIdx, TGS_CallableType1_Validate<Object> validator) {
         return IntStream.range(0, getColumnSize(atRowIdx))
                 .filter(ci -> validator.validate(getValueAsObject(atRowIdx, ci)))
                 .findAny().orElse(-1);
     }
 
-    public int findFirstColIdx(int atRowIdx, TGS_ValidatorType1<Object> validator) {
+    public int findFirstColIdx(int atRowIdx, TGS_CallableType1_Validate<Object> validator) {
         return IntStream.range(0, getColumnSize(atRowIdx))
                 .filter(ci -> validator.validate(getValueAsObject(atRowIdx, ci)))
                 .findFirst().orElse(-1);
     }
 
-    public List<Integer> findAllColIdxs(int atRowIdx, TGS_ValidatorType1<Object> validator) {
+    public List<Integer> findAllColIdxs(int atRowIdx, TGS_CallableType1_Validate<Object> validator) {
         return IntStream.range(0, getColumnSize(atRowIdx))
                 .filter(ci -> validator.validate(getValueAsObject(atRowIdx, ci)))
                 .boxed()
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public int findAnyRowIdx(int atColIdx, TGS_ValidatorType1<Object> validator) {
+    public int findAnyRowIdx(int atColIdx, TGS_CallableType1_Validate<Object> validator) {
         return IntStream.range(0, rows.size())
                 .filter(ri -> validator.validate(getValueAsObject(ri, atColIdx)))
                 .findAny().orElse(-1);
     }
 
-    public int findFirstRowIdx(int atColIdx, TGS_ValidatorType1<Object> validator) {
+    public int findFirstRowIdx(int atColIdx, TGS_CallableType1_Validate<Object> validator) {
         return IntStream.range(0, rows.size())
                 .filter(ri -> validator.validate(getValueAsObject(ri, atColIdx)))
                 .findFirst().orElse(-1);
     }
 
-    public List<Integer> findAllRowIdxs(int atColIdx, TGS_ValidatorType1<Object> validator) {
+    public List<Integer> findAllRowIdxs(int atColIdx, TGS_CallableType1_Validate<Object> validator) {
         return IntStream.range(0, rows.size())
                 .filter(ri -> validator.validate(getValueAsObject(ri, atColIdx)))
                 .boxed()

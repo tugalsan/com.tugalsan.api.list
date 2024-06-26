@@ -1,6 +1,6 @@
 package com.tugalsan.api.list.client;
 
-import com.tugalsan.api.validator.client.TGS_ValidatorType2;
+import com.tugalsan.api.callable.client.TGS_CallableType2_Validate;
 import java.util.*;
 
 public class TGS_ListDistinctizeUtils {
@@ -85,7 +85,7 @@ public class TGS_ListDistinctizeUtils {
 //
 //        });
 //    }
-    public static <T> List<T> getUnique(List<T> listContainingDuplicates, TGS_ValidatorType2<T, T> equals) {
+    public static <T> List<T> getUnique(List<T> listContainingDuplicates, TGS_CallableType2_Validate<T, T> equals) {
         List<T> listUnique = TGS_ListUtils.of();
         listContainingDuplicates.forEach(dirtyItem -> {
             if (listUnique.stream().filter(uniqueItem -> equals.validate(uniqueItem, dirtyItem)).findAny().isPresent()) {
@@ -96,7 +96,7 @@ public class TGS_ListDistinctizeUtils {
         return listUnique;
     }
 
-    public static <T> void makeUnique(List<T> listContainingDuplicates, TGS_ValidatorType2<T, T> equals) {
+    public static <T> void makeUnique(List<T> listContainingDuplicates, TGS_CallableType2_Validate<T, T> equals) {
         var listUnique = getUnique(listContainingDuplicates, equals);
         listContainingDuplicates.clear();
         listContainingDuplicates.addAll(listUnique);
