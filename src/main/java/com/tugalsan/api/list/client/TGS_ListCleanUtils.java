@@ -22,7 +22,7 @@ public class TGS_ListCleanUtils {
     public static List<String> cleanEmptyOrNulls(List<String> main, TGS_CallableType1_Run<Integer> optionalExecutionForEveryDeleteOp) {
         TGS_StreamUtils.reverse(0, main.size()).forEach(i -> {
             var str = main.get(i);
-            if (TGS_StringUtils.isNullOrEmpty(str)) {
+            if (TGS_StringUtils.cmn().isNullOrEmpty(str)) {
                 main.remove(i);
                 optionalExecutionForEveryDeleteOp.run(i);
             }
@@ -33,7 +33,7 @@ public class TGS_ListCleanUtils {
     public static List<String> cleanEmptyOrNulls(List<String> list) {
         TGS_StreamUtils.reverse(0, list.size()).forEach(i -> {
             var str = list.get(i);
-            if (TGS_StringUtils.isNullOrEmpty(str)) {
+            if (TGS_StringUtils.cmn().isNullOrEmpty(str)) {
                 list.remove(i);
             }
         });

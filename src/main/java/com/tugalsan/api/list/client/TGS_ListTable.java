@@ -532,7 +532,7 @@ public class TGS_ListTable {
     }
 
     public boolean isValueEmpty(int rowIndex, int columnIndex) {
-        return TGS_StringUtils.isNullOrEmpty(getValueAsString(rowIndex, columnIndex));
+        return TGS_StringUtils.cmn().isNullOrEmpty(getValueAsString(rowIndex, columnIndex));
     }
 
     public boolean isValuePresent(int rowIndex, int columnIndex) {
@@ -629,7 +629,7 @@ public class TGS_ListTable {
     public String toString() {
         List<String> a = TGS_ListUtils.of();
         rows.forEach(ai -> a.add(((List) ai).toString()));
-        return TGS_StringUtils.toString_ln(a);
+        return TGS_StringUtils.cmn().toString_ln(a);
     }
 
     public void insertRow(int rowIndex, List newRow) {
