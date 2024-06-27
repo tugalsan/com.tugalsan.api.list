@@ -1,6 +1,6 @@
 package com.tugalsan.api.list.client;
 
-import com.tugalsan.api.callable.client.TGS_CallableType2_Validate;
+import com.tugalsan.api.function.client.TGS_Func_OutBool_In2;
 import com.tugalsan.api.stream.client.*;
 import com.tugalsan.api.tuple.client.TGS_Tuple2;
 import java.util.*;
@@ -13,7 +13,7 @@ public class TGS_ListUtils {
 
     }
 
-    public void removeIf(List list, TGS_CallableType2_Validate<List, Object> validator) {
+    public void removeIf(List list, TGS_Func_OutBool_In2<List, Object> validator) {
         removeIf(list, (Predicate) (Object t) -> validator.validate(list, t));
     }
 
