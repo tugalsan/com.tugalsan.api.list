@@ -23,9 +23,7 @@ public class TGS_ListConcatUtils {
 //        }, ordered, lists);
 //    }
     public static <T> List<T> distinct(boolean sorted, List<T>... lists) {
-        return filtered((union, item) -> {
-            return !union.contains(item);
-        }, sorted, lists);
+        return filtered(sorted, (union, item) -> !union.contains(item), lists);
     }
 
     public static <T> List<T> filtered(boolean sorted, TGS_Func_OutBool_In2<List<T>, T> union_item, List<T>... lists) {
