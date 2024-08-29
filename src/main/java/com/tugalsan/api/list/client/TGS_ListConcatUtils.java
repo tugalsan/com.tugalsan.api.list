@@ -51,36 +51,37 @@ public class TGS_ListConcatUtils {
         return newList;
     }
 
-    public static <T> T[] concat(Class<T> clazz, T[]... arrays) {
-        var totalSize = IntStream.range(0, arrays.length).map(i -> arrays[i].length).sum();
-        @SuppressWarnings("unchecked")
-        var o = (T[]) Array.newInstance(clazz, totalSize);
-        var offset = 0;
-        for (var array : arrays) {
-            System.arraycopy(array, 0, o, offset, array.length);
-            offset = array.length;
-        }
+//    @Deprecated //GWT DONT LIKE U
+//    @GwtIncompatible
+//    public static <T> T[] concat(Class<T> clazz, T[]... arrays) {
+//        var totalSize = IntStream.range(0, arrays.length).map(i -> arrays[i].length).sum();
+//        @SuppressWarnings("unchecked")
+//        var o = (T[]) Array.newInstance(clazz, totalSize);
+//        var offset = 0;
+//        for (var array : arrays) {
+//            System.arraycopy(array, 0, o, offset, array.length);
+//            offset = array.length;
+//        }
+//        return o;
+//    }
+    public static String[] concat(String[] s1, String[] s2) {
+        var o = new String[s1.length + s2.length];
+        System.arraycopy(s1, 0, o, 0, s1.length);
+        System.arraycopy(s2, 0, o, s1.length, s2.length);
         return o;
     }
 
-//    public static String[] concat(String[] s1, String[] s2) {
-//        var o = new String[s1.length + s2.length];
-//        System.arraycopy(s1, 0, o, 0, s1.length);
-//        System.arraycopy(s2, 0, o, s1.length, s2.length);
-//        return o;
-//    }
-//
-//    public static Object[] concat(Object[] s1, Object[] s2) {
-//        var o = new Object[s1.length + s2.length];
-//        System.arraycopy(s1, 0, o, 0, s1.length);
-//        System.arraycopy(s2, 0, o, s1.length, s2.length);
-//        return o;
-//    }
-//
-//    public static Object[][] concat(Object[][] s1, Object[][] s2) {
-//        var o = new Object[s1.length + s2.length][];
-//        System.arraycopy(s1, 0, o, 0, s1.length);
-//        System.arraycopy(s2, 0, o, s1.length, s2.length);
-//        return o;
-//    }
+    public static Object[] concat(Object[] s1, Object[] s2) {
+        var o = new Object[s1.length + s2.length];
+        System.arraycopy(s1, 0, o, 0, s1.length);
+        System.arraycopy(s2, 0, o, s1.length, s2.length);
+        return o;
+    }
+
+    public static Object[][] concat(Object[][] s1, Object[][] s2) {
+        var o = new Object[s1.length + s2.length][];
+        System.arraycopy(s1, 0, o, 0, s1.length);
+        System.arraycopy(s2, 0, o, s1.length, s2.length);
+        return o;
+    }
 }
