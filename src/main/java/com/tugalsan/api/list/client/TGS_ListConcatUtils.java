@@ -22,13 +22,13 @@ public class TGS_ListConcatUtils {
 //            return union.stream().filter(it -> it != item.longValue()).findAny().isPresent();//GWT does not like isEmpty; check on 2.10 version again!
 //        }, ordered, lists);
 //    }
-    public static <T> List<T> distinct(boolean ordered, List<T>... lists) {
+    public static <T> List<T> distinct(boolean sorted, List<T>... lists) {
         return filtered((union, item) -> {
             return !union.contains(item);
-        }, ordered, lists);
+        }, sorted, lists);
     }
 
-    public static <T> List<T> filtered(TGS_Func_OutBool_In2<List<T>, T> union_item, boolean ordered, List<T>... lists) {
+    public static <T> List<T> filtered(boolean sorted, TGS_Func_OutBool_In2<List<T>, T> union_item, List<T>... lists) {
         List<T> union = TGS_ListUtils.of();
         if (union_item == null) {
             Arrays.stream(lists).forEach(lst -> union.addAll(lst));
@@ -36,7 +36,7 @@ public class TGS_ListConcatUtils {
         }
         Arrays.stream(lists).forEach(lst -> {
             var s = lst.stream().filter(item -> union_item.validate(union, item));
-            if (ordered) {
+            if (sorted) {
                 s.forEachOrdered(i -> union.add(i));
             } else {
                 s.forEach(i -> union.add(i));
