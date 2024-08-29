@@ -3,6 +3,7 @@ package com.tugalsan.api.list.client;
 import com.tugalsan.api.function.client.TGS_Func_OutBool_In2;
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class TGS_ListConcatUtils {
 
@@ -44,11 +45,15 @@ public class TGS_ListConcatUtils {
         return union;
     }
 
-    public static <T> T[] concat(Class<T> clazz, T[] s1, T[] s2) {
+    public static <T> T[] concat(Class<T> clazz, T[]... arrays) {
+        var totalSize = IntStream.range(0, arrays.length).map(i -> arrays[i].length).sum();
         @SuppressWarnings("unchecked")
-        T[] o = (T[]) Array.newInstance(clazz, s1.length + s2.length);
-        System.arraycopy(s1, 0, o, 0, s1.length);
-        System.arraycopy(s2, 0, o, s1.length, s2.length);
+        T[] o = (T[]) Array.newInstance(clazz, totalSize);
+        var offset = 0;
+        for (T[] array : arrays) {
+            System.arraycopy(array, 0, o, offset, array.length);
+            offset = array.length;
+        }
         return o;
     }
 
