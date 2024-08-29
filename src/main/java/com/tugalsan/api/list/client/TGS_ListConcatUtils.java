@@ -45,12 +45,20 @@ public class TGS_ListConcatUtils {
         return union;
     }
 
+    public static <T> List<T> concat(Class<T> clazz, List<T>... lists) {
+        List<T> newList = new ArrayList();
+        for (var list : lists) {
+            newList.addAll(list);
+        }
+        return newList;
+    }
+
     public static <T> T[] concat(Class<T> clazz, T[]... arrays) {
         var totalSize = IntStream.range(0, arrays.length).map(i -> arrays[i].length).sum();
         @SuppressWarnings("unchecked")
-        T[] o = (T[]) Array.newInstance(clazz, totalSize);
+        var o = (T[]) Array.newInstance(clazz, totalSize);
         var offset = 0;
-        for (T[] array : arrays) {
+        for (var array : arrays) {
             System.arraycopy(array, 0, o, offset, array.length);
             offset = array.length;
         }
