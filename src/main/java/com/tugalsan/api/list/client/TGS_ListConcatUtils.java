@@ -1,9 +1,7 @@
 package com.tugalsan.api.list.client;
 
 import com.tugalsan.api.function.client.TGS_Func_OutBool_In2;
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.stream.IntStream;
 
 public class TGS_ListConcatUtils {
 
