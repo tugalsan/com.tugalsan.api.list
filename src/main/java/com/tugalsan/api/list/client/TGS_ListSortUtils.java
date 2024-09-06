@@ -118,7 +118,7 @@ public class TGS_ListSortUtils {
         TGS_ListSwapUtils.reverseInt(arr);
     }
 
-    public static void sortList(List target, Comparator c) {
+    public static <T> void sortList(List<T> target, Comparator<T> c) {
         Collections.sort(target, c);
     }
 }
