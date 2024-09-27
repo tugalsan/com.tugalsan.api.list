@@ -109,11 +109,11 @@ public class TGS_ListSortUtils {
         Arrays.stream(o).forEachOrdered(item -> v.add(item));
     }
 
-    public static void sortPrimativeInt(int[] v) {
+    public static void sortPrimativeInt(int... v) {
         Arrays.parallelSort(v);
     }
 
-    public static void sortPrimativeIntReversed(int[] arr) {
+    public static void sortPrimativeIntReversed(int... arr) {
         sortPrimativeInt(arr);
         TGS_ListSwapUtils.reverseInt(arr);
     }
