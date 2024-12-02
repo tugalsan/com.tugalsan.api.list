@@ -11,10 +11,11 @@ public class TGS_ListSortUtils {
     }
 
     public static void sortLong(List<Long> v) {
-        var o = (Long[]) v.toArray();
-        Arrays.parallelSort(o);
-        v.clear();
-        Arrays.stream(o).forEachOrdered(item -> v.add(item));
+        Collections.sort(v);
+//        var o = (Long[]) v.toArray();
+//        Arrays.parallelSort(o);
+//        v.clear();
+//        Arrays.stream(o).forEachOrdered(item -> v.add(item));
     }
 
     public static void sortPrimativeLong(long[] v) {
@@ -22,10 +23,11 @@ public class TGS_ListSortUtils {
     }
 
     public static void sortDouble(List<Double> v) {
-        var o = (Double[]) v.toArray();
-        Arrays.parallelSort(o);
-        v.clear();
-        Arrays.stream(o).forEachOrdered(item -> v.add(item));
+        Collections.sort(v);
+//        var o = (Double[]) v.toArray();
+//        Arrays.parallelSort(o);
+//        v.clear();
+//        Arrays.stream(o).forEachOrdered(item -> v.add(item));
     }
 
     public static void sortPrimativeDouble2(double[] sortable, double[] effected) {
@@ -103,10 +105,12 @@ public class TGS_ListSortUtils {
     }
 
     public static void sortInt(List<Integer> v) {
-        var o = (Integer[]) v.toArray();
-        Arrays.parallelSort(o);
-        v.clear();
-        Arrays.stream(o).forEachOrdered(item -> v.add(item));
+        Collections.sort(v);
+//        int[] 
+//        var o = (Integer[]) v.toArray();
+//        Arrays.parallelSort(o);
+//        v.clear();
+//        Arrays.stream(o).forEachOrdered(item -> v.add(item));
     }
 
     public static void sortPrimativeInt(int... v) {
