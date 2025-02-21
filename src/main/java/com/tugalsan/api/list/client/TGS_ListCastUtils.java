@@ -57,7 +57,7 @@ public class TGS_ListCastUtils {
         return TGS_StreamUtils.toLst(
                 IntStream.range(0, input.size())
                         .mapToObj(i -> String.valueOf(input.get(i)))
-                        .map(str -> TGS_CastUtils.toLong(str))
+                        .map(str -> TGS_CastUtils.toLong(str).orElse(null))
         );
     }
 

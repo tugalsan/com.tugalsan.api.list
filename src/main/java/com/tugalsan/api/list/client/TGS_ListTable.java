@@ -119,7 +119,7 @@ public class TGS_ListTable {
             if (is.startsWith("%")) {
                 is = is.substring(1);
             }
-            it = TGS_CastUtils.toDouble(is);
+            it = TGS_CastUtils.toDouble(is).orElse(null);
             if (it == null) {
                 continue;
             }
@@ -128,7 +128,7 @@ public class TGS_ListTable {
                 if (js.startsWith("%")) {
                     js = js.substring(1);
                 }
-                jt = TGS_CastUtils.toDouble(js);
+                jt = TGS_CastUtils.toDouble(js).orElse(null);
                 if (jt == null) {
                     continue;
                 }
@@ -152,7 +152,7 @@ public class TGS_ListTable {
             if (is.startsWith("%")) {
                 is = is.substring(1);
             }
-            var it = TGS_CastUtils.toInteger(is);
+            var it = TGS_CastUtils.toInteger(is).orElse(null);
             if (it == null) {
                 continue;
             }
@@ -161,7 +161,7 @@ public class TGS_ListTable {
                 if (js.startsWith("%")) {
                     js = js.substring(1);
                 }
-                var jt = TGS_CastUtils.toInteger(js);
+                var jt = TGS_CastUtils.toInteger(js).orElse(null);
                 if (jt == null) {
                     continue;
                 }
@@ -211,7 +211,7 @@ public class TGS_ListTable {
             var sum = 0;
             for (var ri = 0; ri < rs; ri++) {
                 var str = getValueAsString(ri, ci);
-                var val = TGS_CastUtils.toInteger(str);
+                var val = TGS_CastUtils.toInteger(str).orElse(null);
                 if (val == null) {
                     continue;
                 }
@@ -227,7 +227,7 @@ public class TGS_ListTable {
             var sum = 0d;
             for (var ri = 0; ri < rs; ri++) {
                 var str = getValueAsString(ri, ci);
-                var val = TGS_CastUtils.toDouble(str);
+                var val = TGS_CastUtils.toDouble(str).orElse(null);
                 if (val == null) {
                     continue;
                 }
@@ -243,7 +243,7 @@ public class TGS_ListTable {
         var i_sum = 0d;
         for (var ri = skipHeaders ? 1 : 0; ri < rs; ri++) {
             var s = getValueAsString(ri, ci);
-            var i = TGS_CastUtils.toDouble(s);
+            var i = TGS_CastUtils.toDouble(s).orElse(null);
             if (i == null) {
                 failed = true;
                 break;
@@ -260,7 +260,7 @@ public class TGS_ListTable {
         var i_sum = 0;
         for (var ri = skipHeaders ? 1 : 0; ri < rs; ri++) {
             var s = getValueAsString(ri, ci);
-            var i = TGS_CastUtils.toInteger(s);
+            var i = TGS_CastUtils.toInteger(s).orElse(null);
             if (i == null) {
                 failed = true;
                 break;
@@ -541,19 +541,19 @@ public class TGS_ListTable {
     }
 
     public Integer getValueAsInteger(int rowIndex, int columnIndex) {
-        return TGS_CastUtils.toInteger(getValueAsString(rowIndex, columnIndex));
+        return TGS_CastUtils.toInteger(getValueAsString(rowIndex, columnIndex)).orElse(null);
     }
 
     public Long getValueAsLong(int rowIndex, int columnIndex) {
-        return TGS_CastUtils.toLong(getValueAsString(rowIndex, columnIndex));
+        return TGS_CastUtils.toLong(getValueAsString(rowIndex, columnIndex)).orElse(null);
     }
 
     public Double getValueAsDouble(int rowIndex, int columnIndex) {
-        return TGS_CastUtils.toDouble(getValueAsString(rowIndex, columnIndex));
+        return TGS_CastUtils.toDouble(getValueAsString(rowIndex, columnIndex)).orElse(null);
     }
 
     public Boolean getValueAsBoolean(int rowIndex, int columnIndex) {
-        return TGS_CastUtils.toBoolean(getValueAsString(rowIndex, columnIndex));
+        return TGS_CastUtils.toBoolean(getValueAsString(rowIndex, columnIndex)).orElse(null);
     }
 
     public Double multiplyValueAsDouble(int rowIndex, int columnIndex, double factor) {

@@ -67,11 +67,11 @@ public class TGS_ListSortUtils {
 
     public static void sortStringAsDouble(List<String> v) {
         TGS_ListSortUtils.sortList(v, (Comparator<String>) (String a, String b) -> {
-            var da = TGS_CastUtils.toDouble(a);
+            var da = TGS_CastUtils.toDouble(a).orElse(null);
             if (da == null) {
                 return 0;
             }
-            var db = TGS_CastUtils.toDouble(b);
+            var db = TGS_CastUtils.toDouble(b).orElse(null);
             if (db == null) {
                 return 0;
             }
@@ -81,8 +81,8 @@ public class TGS_ListSortUtils {
 
     public static void sortStringAsLong(List<String> v) {
         TGS_ListSortUtils.sortList(v, (Comparator<String>) (String a, String b) -> {
-            var da = TGS_CastUtils.toLong(a);
-            var db = TGS_CastUtils.toLong(b);
+            var da = TGS_CastUtils.toLong(a).orElse(null);
+            var db = TGS_CastUtils.toLong(b).orElse(null);
             if (da == null || db == null) {
                 return 0;
             }
@@ -92,11 +92,11 @@ public class TGS_ListSortUtils {
 
     public static void sortStringAsInteger(List<String> v) {
         TGS_ListSortUtils.sortList(v, (Comparator<String>) (String a, String b) -> {
-            var da = TGS_CastUtils.toInteger(a);
+            var da = TGS_CastUtils.toInteger(a).orElse(null);
             if (da == null) {
                 return 0;
             }
-            var db = TGS_CastUtils.toInteger(b);
+            var db = TGS_CastUtils.toInteger(b).orElse(null);
             if (db == null) {
                 return 0;
             }
