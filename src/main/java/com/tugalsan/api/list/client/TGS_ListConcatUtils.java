@@ -4,6 +4,10 @@ import com.tugalsan.api.function.client.maythrow.uncheckedexceptions.TGS_FuncMTU
 import java.util.*;
 
 public class TGS_ListConcatUtils {
+    
+    private TGS_ListConcatUtils(){
+        
+    }
 
 //    public static List<String> distinctString(boolean ordered, List<String>... lists) {
 //        return filtered((union, item) -> !union.contains(item), ordered, lists);
@@ -11,13 +15,13 @@ public class TGS_ListConcatUtils {
 //
 //    public static List<Long> distinctLong(boolean ordered, List<Long>... lists) {
 //        return filtered((union, item) -> {
-//            return union.stream().filter(it -> it != item.longValue()).findAny().isPresent();//GWT does not like isEmpty; check on 2.10 version again!
+//            return union.stream().anyMatch(it -> it != item.longValue());//GWT does not like isEmpty; check on 2.10 version again!
 //        }, ordered, lists);
 //    }
 //
 //    public static List<Integer> distinctInteger(boolean ordered, List<Integer>... lists) {
 //        return filtered((union, item) -> {
-//            return union.stream().filter(it -> it != item.longValue()).findAny().isPresent();//GWT does not like isEmpty; check on 2.10 version again!
+//            return union.stream().anyMatch(it -> it != item.longValue());//GWT does not like isEmpty; check on 2.10 version again!
 //        }, ordered, lists);
 //    }
     public static <T> List<T> distinct(boolean sorted, List<T>... lists) {

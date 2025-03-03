@@ -88,7 +88,7 @@ public class TGS_ListDistinctizeUtils {
     public static <T> List<T> getUnique(List<T> listContainingDuplicates, TGS_FuncMTUCE_OutBool_In2<T, T> equals) {
         List<T> listUnique = TGS_ListUtils.of();
         listContainingDuplicates.forEach(dirtyItem -> {
-            if (listUnique.stream().filter(uniqueItem -> equals.validate(uniqueItem, dirtyItem)).findAny().isPresent()) {
+            if (listUnique.stream().anyMatch(uniqueItem -> equals.validate(uniqueItem, dirtyItem))) {
                 return;
             }
             listUnique.add(dirtyItem);
