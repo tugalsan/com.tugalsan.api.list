@@ -1,6 +1,6 @@
 package com.tugalsan.api.list.client;
 
-import com.tugalsan.api.function.client.maythrow.uncheckedexceptions.TGS_FuncMTUCE_OutBool_In2;
+import com.tugalsan.api.function.client.maythrowexceptions.unchecked.TGS_FuncMTU_OutBool_In2;
 import java.util.*;
 
 public class TGS_ListConcatUtils {
@@ -28,7 +28,7 @@ public class TGS_ListConcatUtils {
         return filtered(sorted, (union, item) -> !union.contains(item), lists);
     }
 
-    public static <T> List<T> filtered(boolean sorted, TGS_FuncMTUCE_OutBool_In2<List<T>, T> union_item, List<T>... lists) {
+    public static <T> List<T> filtered(boolean sorted, TGS_FuncMTU_OutBool_In2<List<T>, T> union_item, List<T>... lists) {
         List<T> union = TGS_ListUtils.of();
         if (union_item == null) {
             Arrays.stream(lists).forEach(lst -> union.addAll(lst));

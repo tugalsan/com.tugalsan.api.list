@@ -1,7 +1,7 @@
 package com.tugalsan.api.list.client;
 
-import com.tugalsan.api.function.client.maythrow.uncheckedexceptions.TGS_FuncMTUCE_In1;
-import com.tugalsan.api.function.client.maythrow.uncheckedexceptions.TGS_FuncMTUCE_OutBool_In1;
+import com.tugalsan.api.function.client.maythrowexceptions.unchecked.TGS_FuncMTU_In1;
+import com.tugalsan.api.function.client.maythrowexceptions.unchecked.TGS_FuncMTU_OutBool_In1;
 import java.util.*;
 import java.util.stream.*;
 import com.tugalsan.api.time.client.*;
@@ -48,7 +48,7 @@ public class TGS_ListTable {
                 .findAny().orElse(-1);
     }
 
-    public TGS_ListTable forEachRowIdx(TGS_FuncMTUCE_OutBool_In1<Integer> optionalRowIdxValidator, TGS_FuncMTUCE_In1<Integer> ri) {
+    public TGS_ListTable forEachRowIdx(TGS_FuncMTU_OutBool_In1<Integer> optionalRowIdxValidator, TGS_FuncMTU_In1<Integer> ri) {
         TGS_StreamUtils.forward(0, getRowSize()).forEachOrdered(rowIdx -> {
             if (optionalRowIdxValidator != null && !optionalRowIdxValidator.validate(rowIdx)) {
                 return;
@@ -58,7 +58,7 @@ public class TGS_ListTable {
         return this;
     }
 
-    public TGS_ListTable forEachRowIdxReversed(TGS_FuncMTUCE_OutBool_In1<Integer> optionalRowIdxValidator, TGS_FuncMTUCE_In1<Integer> ri) {
+    public TGS_ListTable forEachRowIdxReversed(TGS_FuncMTU_OutBool_In1<Integer> optionalRowIdxValidator, TGS_FuncMTU_In1<Integer> ri) {
         TGS_StreamUtils.reverse(0, getRowSize()).forEachOrdered(rowIdx -> {
             if (optionalRowIdxValidator != null && !optionalRowIdxValidator.validate(rowIdx)) {
                 return;
@@ -83,7 +83,7 @@ public class TGS_ListTable {
         }
     }
 
-    public void deleteRow(TGS_FuncMTUCE_OutBool_In1<Integer> ri, TGS_FuncMTUCE_In1<Integer> runAfterEveryDeleteRowAction) {
+    public void deleteRow(TGS_FuncMTU_OutBool_In1<Integer> ri, TGS_FuncMTU_In1<Integer> runAfterEveryDeleteRowAction) {
         TGS_StreamUtils.reverse(0, getRowSize()).forEachOrdered(_ri -> {
             if (ri.validate(_ri)) {
                 TGS_ListTable.this.deleteRow(_ri);
@@ -94,7 +94,7 @@ public class TGS_ListTable {
         });
     }
 
-    public void deleteRow(TGS_FuncMTUCE_OutBool_In1<Integer> ri) {
+    public void deleteRow(TGS_FuncMTU_OutBool_In1<Integer> ri) {
         deleteRow(ri, null);
     }
 
@@ -670,45 +670,45 @@ public class TGS_ListTable {
                 .forEach(i -> rows.remove(i));
     }
 
-    public TGS_ShapeLocation<Integer> find(TGS_FuncMTUCE_OutBool_In1<Object> validator) {
+    public TGS_ShapeLocation<Integer> find(TGS_FuncMTU_OutBool_In1<Object> validator) {
         return IntStream.range(0, rows.size())
                 .mapToObj(ri -> TGS_ShapeLocation.of(ri, findAnyColIdx(ri, validator))[0])
                 .filter(p2 -> p2.y != -1)
                 .findAny().orElse(null);
     }
 
-    public int findAnyColIdx(int atRowIdx, TGS_FuncMTUCE_OutBool_In1<Object> validator) {
+    public int findAnyColIdx(int atRowIdx, TGS_FuncMTU_OutBool_In1<Object> validator) {
         return IntStream.range(0, getColumnSize(atRowIdx))
                 .filter(ci -> validator.validate(getValueAsObject(atRowIdx, ci)))
                 .findAny().orElse(-1);
     }
 
-    public int findFirstColIdx(int atRowIdx, TGS_FuncMTUCE_OutBool_In1<Object> validator) {
+    public int findFirstColIdx(int atRowIdx, TGS_FuncMTU_OutBool_In1<Object> validator) {
         return IntStream.range(0, getColumnSize(atRowIdx))
                 .filter(ci -> validator.validate(getValueAsObject(atRowIdx, ci)))
                 .findFirst().orElse(-1);
     }
 
-    public List<Integer> findAllColIdxs(int atRowIdx, TGS_FuncMTUCE_OutBool_In1<Object> validator) {
+    public List<Integer> findAllColIdxs(int atRowIdx, TGS_FuncMTU_OutBool_In1<Object> validator) {
         return IntStream.range(0, getColumnSize(atRowIdx))
                 .filter(ci -> validator.validate(getValueAsObject(atRowIdx, ci)))
                 .boxed()
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public int findAnyRowIdx(int atColIdx, TGS_FuncMTUCE_OutBool_In1<Object> validator) {
+    public int findAnyRowIdx(int atColIdx, TGS_FuncMTU_OutBool_In1<Object> validator) {
         return IntStream.range(0, rows.size())
                 .filter(ri -> validator.validate(getValueAsObject(ri, atColIdx)))
                 .findAny().orElse(-1);
     }
 
-    public int findFirstRowIdx(int atColIdx, TGS_FuncMTUCE_OutBool_In1<Object> validator) {
+    public int findFirstRowIdx(int atColIdx, TGS_FuncMTU_OutBool_In1<Object> validator) {
         return IntStream.range(0, rows.size())
                 .filter(ri -> validator.validate(getValueAsObject(ri, atColIdx)))
                 .findFirst().orElse(-1);
     }
 
-    public List<Integer> findAllRowIdxs(int atColIdx, TGS_FuncMTUCE_OutBool_In1<Object> validator) {
+    public List<Integer> findAllRowIdxs(int atColIdx, TGS_FuncMTU_OutBool_In1<Object> validator) {
         return IntStream.range(0, rows.size())
                 .filter(ri -> validator.validate(getValueAsObject(ri, atColIdx)))
                 .boxed()
