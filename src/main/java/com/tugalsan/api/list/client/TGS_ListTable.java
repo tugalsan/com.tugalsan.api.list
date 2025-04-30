@@ -309,11 +309,11 @@ public class TGS_ListTable {
     }
 
     public void insertHeaderPlain_as_columnNumbers() {
-        insertHeaderPlain(IntStream.range(0, getMaxColumnSize()).boxed().toList());
+        insertHeaderPlain(TGS_StreamUtils.toLst(IntStream.range(0, getMaxColumnSize())));
     }
 
     public void insertHeaderBold_as_columnNumbers() {
-        insertHeaderPlain(IntStream.range(0, getMaxColumnSize()).boxed().toList());
+        insertHeaderBold(TGS_StreamUtils.toLst(IntStream.range(0, getMaxColumnSize())));
     }
 
     boolean headerBold;
