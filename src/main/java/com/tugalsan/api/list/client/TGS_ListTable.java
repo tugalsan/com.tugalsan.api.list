@@ -98,17 +98,6 @@ public class TGS_ListTable {
         deleteRow(ri, null);
     }
 
-    public void addHeaders(List<String> headers, boolean headerBold) {
-        insertEmptyRow(0);
-        IntStream.range(0, headers.size()).forEachOrdered(ci -> setValue(0, ci, headers.get(ci)));
-        setHeaderBold(headerBold);
-    }
-
-    public void addHeaderAsColumnNumber() {
-        insertEmptyRow(0);
-        IntStream.range(0, getMaxColumnSize()).forEachOrdered(ci -> setValue(0, ci, String.valueOf(ci)));
-    }
-
     public TGS_ListTable sortColumnAsDouble(int columnIndex, boolean skipHeader) {
         var rs = rows.size();
         List tmpRow;
@@ -299,11 +288,32 @@ public class TGS_ListTable {
         return this;
     }
 
+    public TGS_ListTable insertHeaderPlain(List lst) {
+        setHeaderBold(false);
+        rows.add(0, lst);
+        return this;
+    }
+
     public TGS_ListTable insertHeaderBold(Object... values) {
         setHeaderBold(true);
         insertEmptyRow(0);
-        setValue(0, values);
+        setValues(0, values);
         return this;
+    }
+
+    public TGS_ListTable insertHeaderPlain(Object... values) {
+        setHeaderBold(false);
+        insertEmptyRow(0);
+        setValues(0, values);
+        return this;
+    }
+
+    public void insertHeaderPlain_as_columnNumbers() {
+        insertHeaderPlain(IntStream.range(0, getMaxColumnSize()).boxed().toList());
+    }
+
+    public void insertHeaderBold_as_columnNumbers() {
+        insertHeaderPlain(IntStream.range(0, getMaxColumnSize()).boxed().toList());
     }
 
     boolean headerBold;
@@ -409,7 +419,7 @@ public class TGS_ListTable {
         rows.add(TGS_ListUtils.of());
     }
 
-    public void setValue(int rowIndex, Object... values) {
+    public void setValues(int rowIndex, Object... values) {
         if (values.length == 1 && values[0] instanceof Object[] && !(values[0] instanceof byte[])) {
             var valuesArr = (Object[]) values[0];
             IntStream.range(0, valuesArr.length).forEachOrdered(ci -> setValue(rowIndex, ci, values[ci]));
