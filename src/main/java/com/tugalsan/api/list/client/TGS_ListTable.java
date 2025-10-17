@@ -267,8 +267,9 @@ public class TGS_ListTable {
         return clone;
     }
 
-    public void sniffHeaderConfig(TGS_ListTable table) {
+    public void sniffHeader(TGS_ListTable table, boolean copyData) {
         this.headerBold = table.headerBold;
+        sniffRow(table, 0);
     }
 
     public void sniffRows(TGS_ListTable table) {
