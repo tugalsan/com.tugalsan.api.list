@@ -543,6 +543,11 @@ public class TGS_ListTable {
         return String.valueOf(getValueAsObject(rowIndex, columnIndex));
     }
 
+    public String getValueAsString(int rowIndex, int columnIndex, Object nullValue) {
+        var o = getValueAsObject(rowIndex, columnIndex);
+        return String.valueOf(o == null ? nullValue : o);
+    }
+
     public boolean isValueEmpty(int rowIndex, int columnIndex) {
         return TGS_StringUtils.cmn().isNullOrEmpty(getValueAsString(rowIndex, columnIndex));
     }
