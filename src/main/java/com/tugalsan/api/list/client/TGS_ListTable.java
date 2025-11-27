@@ -688,7 +688,7 @@ public class TGS_ListTable {
 
     public TGS_ShapeLocation<Integer> find(TGS_FuncMTU_OutBool_In1<Object> validator) {
         return IntStream.range(0, rows.size())
-                .mapToObj(ri -> TGS_ShapeLocation.of(ri, findAnyColIdx(ri, validator))[0])
+                .mapToObj(ri -> TGS_ShapeLocation.ofPairedValues(ri, findAnyColIdx(ri, validator))[0])
                 .filter(p2 -> p2.y != -1)
                 .findAny().orElse(null);
     }
